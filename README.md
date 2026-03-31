@@ -2,7 +2,9 @@
 
 A lightweight, browser-based assessment dashboard for tracking agile project maturity across multiple disciplines and dated review snapshots.
 
-The app is currently implemented as a single static file, [`index.html`](./index.html), so there is no build pipeline or package installation step required to get started.
+👉 You can explore the live application rendered from this repository’s source code at: https://gemini.google.com/share/934a5126ecdb
+
+The app is currently implemented as a single static file, [`index.html`](./index.html) supported by multiple helper JS files, so there is no build pipeline or package installation step required to get started.
 
 ## What It Does
 
@@ -18,7 +20,7 @@ The app is currently implemented as a single static file, [`index.html`](./index
 
 ## Seeded Assessment Model
 
-The default dataset includes `58` assessment questions across `8` disciplines:
+The default dataset includes `60` assessment questions across `8` disciplines:
 
 - `A-Agility`
 - `B-Overall Process`
@@ -79,17 +81,3 @@ When you save or download JSON, the exported state includes:
 - basic metadata such as schema version and timestamps
 
 This makes the JSON file portable and suitable for reopening later in the app.
-
-## Repository Structure
-
-```text
-.
-|-- index.html   # complete application UI, styling, seeded data, and logic
-|-- README.md
-```
-
-## Notes
-
-- There is currently no automated test suite in this repository.
-- External libraries are loaded from public CDNs at runtime.
-- The app is designed for client-side use only; there is no backend service in this repo.
