@@ -1,26 +1,24 @@
 # Agile Project Maturity Assessment App
 
-A lightweight, browser-based assessment dashboard for tracking agile project maturity across multiple disciplines and dated review snapshots.
+A lightweight browser app for assessing agile project maturity across multiple disciplines and dated review snapshots.
 
-👉 You can explore the live application rendered from this repository’s source code at: https://gemini.google.com/share/934a5126ecdb
+The application itself is a static single-page app rendered from [`index.html`](./index.html). There is no build pipeline required to use the app in a browser. The Node/Cypress setup in this repository exists to support end-to-end test automation.
 
-The app is currently implemented as a single static file, [`index.html`](./index.html) supported by multiple helper JS files, so there is no build pipeline or package installation step required to get started.
-
-## What It Does
+## What The App Does
 
 - Scores agile maturity on a `1-5` scale.
-- Tracks up to `12` dated assessment snapshots and lets you switch the dashboard between them.
+- Tracks up to `12` dated assessment snapshots.
 - Calculates overall and per-discipline maturity averages.
-- Visualizes results with a radar chart and date comparison charts.
+- Visualizes results with a radar chart and assessment comparison charts.
 - Supports adding custom disciplines and custom questions.
 - Filters the assessment table by discipline.
-- Exports the current report to `PDF` and `PPTX`.
-- Opens, downloads, and links a JSON file for persistence and autosave.
-- Stores an audit trail in the saved JSON payload.
+- Opens, downloads, and links JSON files for persistence.
+- Exports reports to `PDF` and `PPTX`.
+- Records an audit trail in the saved JSON payload.
 
 ## Seeded Assessment Model
 
-The default dataset includes `60` assessment questions across `8` disciplines:
+The default dataset contains `58` assessment questions across `8` disciplines:
 
 - `A-Agility`
 - `B-Overall Process`
@@ -33,51 +31,77 @@ The default dataset includes `60` assessment questions across `8` disciplines:
 
 By default, seeded questions start with a current score of `2` and a target score of `4`.
 
-## Running Locally
+## Running The App Locally
 
-Because this is a static app, you can run it in either of these ways:
+You can either:
 
 1. Open [`index.html`](./index.html) directly in a browser.
-2. Serve the folder locally if you want a more browser-friendly setup for file-based features:
+2. Serve the repository as static files for a more browser-friendly setup.
 
 ```powershell
-cd f:\Repositories\fdcp\agile-project-maturity-assessment-app
+cd e:\Repositories\fdcp\agile-project-maturity-assessment-app
 python -m http.server 8000
 ```
 
 Then open `http://localhost:8000`.
 
-## Recommended Browser
+## Cypress BDD Coverage
 
-A current Chromium-based browser is the safest choice for full functionality because the app uses:
+This repository now contains **two Cypress BDD suites** so readers can compare two different approaches side by side.
 
-- `Chart.js` for charts
-- `jsPDF` and `jspdf-autotable` for PDF export
-- `PptxGenJS` for PowerPoint export
-- the browser File System Access APIs for `Open JSON` and `Link JSON Save`
+### 1. Conventional App-Specific BDD Suite
 
-If the browser does not support `showOpenFilePicker` or `showSaveFilePicker`, the app still works, but linked JSON open/autosave features will be unavailable. `Download JSON` remains the fallback.
+This suite is optimized for this app directly.
 
-## Typical Workflow
+- Features live in `cypress/e2e/features`
+- Shared step definitions live in `cypress/e2e/common`
+- Commands and browser harness utilities live in `cypress/support`
+- Coverage includes dashboard rendering, assessment timeline management, editing/customization, persistence, JSON workflows, and export flows
+- Every feature is exercised for both desktop and mobile viewports
 
-1. Open the app.
-2. Review or edit the seeded maturity questions.
-3. Select an assessment date, or add a new one.
-4. Update scores for the active date.
-5. Compare progress using the dashboard cards and charts.
-6. Add custom disciplines or questions if needed.
-7. Save your state with `Link JSON Save` or `Download JSON`.
-8. Export stakeholder-ready summaries with `Export PDF` or `Export PPT`.
+### 2. Source-Style Custom BDD Suite
 
-## Saved Data
+This suite mirrors the more generic/page-object-driven structure from the source Cypress framework that inspired the migration.
 
-When you save or download JSON, the exported state includes:
+- Features live in `cypress/e2e/custom/features`
+- Shared step dictionary lives in `cypress/e2e/custom/common`
+- Page objects live in `cypress/e2e/pageObjects`
+- The local step dictionary overview is documented in [`cypress/e2e/custom/common/README.md`](./cypress/e2e/custom/common/README.md)
+- Every feature is also exercised for both desktop and mobile viewports
 
-- assessment history
-- the active assessment id
-- original and current question data
-- custom disciplines
-- audit log entries
-- basic metadata such as schema version and timestamps
+## Installing Test Dependencies
 
-This makes the JSON file portable and suitable for reopening later in the app.
+The app itself does not need a package install to run, but Cypress does.
+
+```powershell
+npm install
+```
+
+## Running Cypress
+
+The Cypress scripts use [`scripts/run-cypress.js`](./scripts/run-cypress.js), which clears `ELECTRON_RUN_AS_NODE` before launching Cypress. That is important in environments where this variable is already set, because it can prevent the Cypress binary from starting correctly.
+
+```powershell
+npm run test:e2e:conventional
+npm run test:e2e:custom
+npm run test:e2e:all
+npm run cy:open
+```
+
+## Current Validation Status
+
+The two BDD suites were verified locally with:
+
+```powershell
+npm run test:e2e:conventional
+npm run test:e2e:custom
+```
+
+Both suites pass across desktop and mobile scenarios.
+
+## Repository Test Assets
+
+- `cypress/fixtures/saved-assessment.json`: reusable persistence fixture
+- `cypress/support/vendor-stubs.js`: local script stubs for external browser libraries used by the app
+- `cypress/server/static-server.js`: static host used by Cypress during runs
+- `scripts/run-cypress.js`: Cypress launcher wrapper for this environment

@@ -1,0 +1,24 @@
+{
+  "name": "agile-project-maturity-assessment-app",
+  "private": true,
+  "version": "1.0.0",
+  "description": "BDD Cypress coverage for the Agile Project Maturity Assessment App",
+  "scripts": {
+    "cy:open": "node scripts/run-cypress.js open",
+    "cy:run": "node scripts/run-cypress.js run",
+    "test:e2e": "node scripts/run-cypress.js run --browser chrome",
+    "test:e2e:headed": "node scripts/run-cypress.js run --browser chrome --headed",
+    "test:e2e:features": "node scripts/run-cypress.js run --browser chrome --spec cypress/e2e/features/*.feature",
+    "test:e2e:conventional": "node scripts/run-cypress.js run --browser chrome --spec cypress/e2e/features/*.feature",
+    "test:e2e:custom": "node scripts/run-cypress.js run --browser chrome --spec cypress/e2e/custom/features/*.feature",
+    "test:e2e:all": "node scripts/run-cypress.js run --browser chrome --spec cypress/e2e/**/*.feature"
+  },
+  "devDependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^23.2.1",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.7",
+    "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
+    "@esbuild-plugins/node-modules-polyfill": "^0.2.2",
+    "cypress": "^15.7.0",
+    "esbuild": "^0.25.5"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "metadata": {
+    "appName": "Agile Project Maturity Index",
+    "schemaVersion": 2,
+    "createdAt": "2026-01-01T00:00:00.000Z",
+    "lastSavedAt": "2026-02-01T08:30:00.000Z",
+    "linkedFileName": "saved-assessment.json"
+  },
+  "assessmentHistory": [
+    {
+      "id": "assessment-1",
+      "date": "2026-01-01",
+      "order": 0
+    },
+    {
+      "id": "assessment-2",
+      "date": "2026-02-01",
+      "order": 1
+    }
+  ],
+  "activeAssessmentId": "assessment-2",
+  "originalData": [
+    {
+      "_rowId": "row-1",
+      "discipline": "A-Agility",
+      "virtue": "Fixture Virtue",
+      "principle": "Original fixture principle",
+      "current": 2,
+      "target": 4,
+      "scoreHistory": {
+        "assessment-1": 2,
+        "assessment-2": 4
+      }
+    },
+    {
+      "_rowId": "row-2",
+      "discipline": "Z-Fixture Discipline",
+      "virtue": "Loaded Coverage",
+      "principle": "Original fixture custom question",
+      "current": 3,
+      "target": 5,
+      "scoreHistory": {
+        "assessment-1": 3,
+        "assessment-2": 5
+      }
+    }
+  ],
+  "currentData": [
+    {
+      "_rowId": "row-1",
+      "discipline": "A-Agility",
+      "virtue": "Fixture Virtue",
+      "principle": "Loaded fixture principle",
+      "current": 4,
+      "target": 5,
+      "scoreHistory": {
+        "assessment-1": 2,
+        "assessment-2": 4
+      }
+    },
+    {
+      "_rowId": "row-2",
+      "discipline": "Z-Fixture Discipline",
+      "virtue": "Loaded Coverage",
+      "principle": "Fixture loaded custom question",
+      "current": 5,
+      "target": 5,
+      "scoreHistory": {
+        "assessment-1": 3,
+        "assessment-2": 5
+      }
+    }
+  ],
+  "customDisciplines": [
+    "Z-Fixture Discipline"
+  ],
+  "auditLog": [
+    {
+      "auditId": "audit-1",
+      "timestamp": "2026-02-01T08:00:00.000Z",
+      "action": "fixture_loaded",
+      "detail": {
+        "source": "cypress"
+      }
+    }
+  ]
+}

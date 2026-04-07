@@ -577,96 +577,96 @@
 <body>
 
 <!-- Modal: New Discipline -->
-<div class="modal-overlay" id="disciplineModal">
+<div class="modal-overlay" id="disciplineModal" data-testid="discipline-modal">
     <div class="modal-content">
         <div class="modal-title">New Discipline</div>
         <div class="form-group">
             <label>Discipline Name</label>
-            <input type="text" id="discNameInput" class="modal-input" placeholder="e.g. Quality Assurance">
+            <input type="text" id="discNameInput" class="modal-input" placeholder="e.g. Quality Assurance" data-testid="discipline-name-input">
         </div>
         <div class="modal-actions">
-            <button class="btn btn-outline" onclick="closeAllModals()">Cancel</button>
-            <button class="btn btn-primary" id="confirmAddDisc">Create</button>
+            <button class="btn btn-outline" onclick="closeAllModals()" data-testid="cancel-add-discipline">Cancel</button>
+            <button class="btn btn-primary" id="confirmAddDisc" data-testid="confirm-add-discipline">Create</button>
         </div>
     </div>
 </div>
 
 <!-- Modal: New Question -->
-<div class="modal-overlay" id="questionModal">
+<div class="modal-overlay" id="questionModal" data-testid="question-modal">
     <div class="modal-content">
         <div class="modal-title">Add New Question</div>
         <div class="form-group">
             <label>Discipline</label>
-            <select id="modalQuestDisc" class="modal-input"></select>
+            <select id="modalQuestDisc" class="modal-input" data-testid="question-discipline-select"></select>
         </div>
         <div class="form-group">
             <label>Virtue</label>
-            <input type="text" id="modalQuestVirtue" class="modal-input" placeholder="e.g. Test Coverage">
+            <input type="text" id="modalQuestVirtue" class="modal-input" placeholder="e.g. Test Coverage" data-testid="question-virtue-input">
         </div>
         <div class="form-group">
             <label>Principle (Description)</label>
-            <input type="text" id="modalQuestPrinc" class="modal-input" placeholder="e.g. Maintain 80% code coverage on all new features">
+            <input type="text" id="modalQuestPrinc" class="modal-input" placeholder="e.g. Maintain 80% code coverage on all new features" data-testid="question-principle-input">
         </div>
         <div style="display: flex; gap: 16px; flex-wrap: wrap;">
             <div class="form-group" style="flex:1; min-width: 140px;">
                 <label>Score for Active Date</label>
-                <input type="number" id="modalQuestCurr" class="modal-input" value="0" min="1" max="5">
+                <input type="number" id="modalQuestCurr" class="modal-input" value="0" min="1" max="5" data-testid="question-current-input">
             </div>
             <div class="form-group" style="flex:1; min-width: 140px;">
                 <label>Target</label>
-                <input type="number" id="modalQuestTarg" class="modal-input" value="5" min="1" max="5">
+                <input type="number" id="modalQuestTarg" class="modal-input" value="5" min="1" max="5" data-testid="question-target-input">
             </div>
         </div>
         <div class="modal-actions">
-            <button class="btn btn-outline" onclick="closeAllModals()">Cancel</button>
-            <button class="btn btn-primary" id="confirmAddQuestion">Add Question</button>
+            <button class="btn btn-outline" onclick="closeAllModals()" data-testid="cancel-add-question">Cancel</button>
+            <button class="btn btn-primary" id="confirmAddQuestion" data-testid="confirm-add-question">Add Question</button>
         </div>
     </div>
 </div>
 
-<div class="app-container">
-    <div class="header-card">
+<div class="app-container" data-testid="app-root">
+    <div class="header-card" data-testid="dashboard-shell">
         <div class="header-top">
-            <div class="title">Agile Maturity Management <small>Dynamic Index</small></div>
-            <div class="header-actions">
-                <button class="btn btn-outline" id="exportPdfBtn">Export PDF</button>
-                <button class="btn btn-outline" id="exportPptBtn">Export PPT</button>
+            <div class="title" data-testid="app-title">Agile Maturity Management <small>Dynamic Index</small></div>
+            <div class="header-actions" data-testid="export-actions">
+                <button class="btn btn-outline" id="exportPdfBtn" data-testid="export-pdf-button">Export PDF</button>
+                <button class="btn btn-outline" id="exportPptBtn" data-testid="export-ppt-button">Export PPT</button>
             </div>
         </div>
 
-        <div class="assessment-panel">
+        <div class="assessment-panel" data-testid="assessment-panel">
             <div class="assessment-header">
                 <div>
                     <div class="assessment-title">Assessment Timeline</div>
                     <div class="assessment-subtitle">Enter 1-5 scores across up to 12 dated assessment snapshots and switch the dashboard between them.</div>
                 </div>
-                <div class="assessment-meta" id="assessmentCount">1 / 12 dates</div>
+                <div class="assessment-meta" id="assessmentCount" data-testid="assessment-count">1 / 12 dates</div>
             </div>
-            <div class="assessment-controls">
+            <div class="assessment-controls" data-testid="assessment-controls">
                 <div class="assessment-field wide">
                     <label for="assessmentSelect">Active Date</label>
-                    <select id="assessmentSelect"></select>
+                    <select id="assessmentSelect" data-testid="assessment-select"></select>
                 </div>
                 <div class="assessment-field medium">
                     <label for="assessmentDateInput">Select Date</label>
-                    <input type="date" id="assessmentDateInput" class="date-input">
+                    <input type="date" id="assessmentDateInput" class="date-input" data-testid="assessment-date-input">
                 </div>
-                <div class="assessment-actions-inline">
-                    <button class="btn btn-primary" id="saveAssessmentDateBtn">Update Date</button>
-                    <button class="btn btn-outline" id="addAssessmentBtn">Add Date</button>
-                    <button class="btn btn-outline" id="removeAssessmentBtn">Remove Date</button>
+                <div class="assessment-actions-inline" data-testid="assessment-actions">
+                    <button class="btn btn-primary" id="saveAssessmentDateBtn" data-testid="update-date-button">Update Date</button>
+                    <button class="btn btn-outline" id="addAssessmentBtn" data-testid="add-date-button">Add Date</button>
+                    <button class="btn btn-outline" id="removeAssessmentBtn" data-testid="remove-date-button">Remove Date</button>
                 </div>
             </div>
-            <div class="assessment-chip-row" id="assessmentChipRow"></div>
-            <div class="assessment-note" id="activeAssessmentNote">Viewing assessment scores for the active date.</div>
+            <div class="assessment-chip-row" id="assessmentChipRow" data-testid="assessment-chip-row"></div>
+            <div class="assessment-note" id="activeAssessmentNote" data-testid="active-assessment-note">Viewing assessment scores for the active date.</div>
         </div>
 
-        <div class="overall-row" id="overallMaturity"></div>
-        <div class="overall-scorecard" id="overallScorecard"></div>
-        <div class="radar-container">
-            <div class="radar-wrapper"><canvas id="radarChart"></canvas></div>
+        <div class="overall-row" id="overallMaturity" data-testid="overall-maturity"></div>
+        <div class="overall-scorecard" id="overallScorecard" data-testid="overall-scorecard"></div>
+        <div class="radar-container" data-testid="radar-section">
+            <div class="radar-wrapper"><canvas id="radarChart" data-testid="radar-chart"></canvas></div>
         </div>
-        <div class="comparison-section">
+        <div class="comparison-section" data-testid="comparison-section">
             <div class="comparison-heading">
                 <div>
                     <h3>Date Comparison Graphs</h3>
@@ -674,7 +674,7 @@
                 </div>
                 <div class="comparison-controls">
                     <label for="comparisonChartType">Chart Type</label>
-                    <select id="comparisonChartType" class="comparison-type-select">
+                    <select id="comparisonChartType" class="comparison-type-select" data-testid="comparison-chart-type">
                         <option value="bar">Bar Graph</option>
                         <option value="line">Line Graph</option>
                     </select>
@@ -685,15 +685,15 @@
                     <div class="comparison-card-title">Overall Score by Date</div>
                     <div class="comparison-card-subtitle">Average score across all questions for each saved assessment date.</div>
                     <div class="comparison-chart-wrap">
-                        <canvas id="comparisonOverviewChart"></canvas>
+                        <canvas id="comparisonOverviewChart" data-testid="comparison-overview-chart"></canvas>
                     </div>
                 </div>
                 <div class="comparison-card wide">
                     <div class="comparison-card-title">Discipline Score Comparison</div>
                     <div class="comparison-card-subtitle">Side-by-side discipline averages for every saved date. The active date stays highlighted.</div>
                     <div class="comparison-scroll">
-                        <div class="comparison-stage" id="comparisonStage">
-                            <canvas id="comparisonDisciplineChart"></canvas>
+                        <div class="comparison-stage" id="comparisonStage" data-testid="comparison-stage">
+                            <canvas id="comparisonDisciplineChart" data-testid="comparison-discipline-chart"></canvas>
                         </div>
                     </div>
                 </div>
@@ -703,35 +703,35 @@
 
     <div class="scorecards-header-bar">
         <h3>Discipline Scorecards</h3>
-        <button class="btn btn-outline" id="addNewDiscBtn">
+        <button class="btn btn-outline" id="addNewDiscBtn" data-testid="open-add-discipline">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             Create New Discipline
         </button>
     </div>
-    <div class="scorecard-grid" id="disciplineScorecards"></div>
+    <div class="scorecard-grid" id="disciplineScorecards" data-testid="discipline-scorecards"></div>
 
-    <div class="control-bar">
+    <div class="control-bar" data-testid="control-bar">
         <div class="filter-group">
             <label for="discFilter">Filter:</label>
-            <select id="discFilter" style="width: auto;">
+            <select id="discFilter" style="width: auto;" data-testid="discipline-filter">
                 <option value="All">All Disciplines</option>
             </select>
         </div>
-        <button class="btn btn-primary" id="addRowBtn">
+        <button class="btn btn-primary" id="addRowBtn" data-testid="open-add-question">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
             Add Question
         </button>
-        <button class="btn btn-outline" id="openJsonBtn">Open JSON</button>
-        <button class="btn btn-outline" id="linkJsonBtn">Link JSON Save</button>
-        <button class="btn btn-outline" id="downloadJsonBtn">Download JSON</button>
-        <div class="save-status" id="saveStatus">JSON not linked</div>
+        <button class="btn btn-outline" id="openJsonBtn" data-testid="open-json-button">Open JSON</button>
+        <button class="btn btn-outline" id="linkJsonBtn" data-testid="link-json-button">Link JSON Save</button>
+        <button class="btn btn-outline" id="downloadJsonBtn" data-testid="download-json-button">Download JSON</button>
+        <div class="save-status" id="saveStatus" data-testid="save-status">JSON not linked</div>
         <div class="control-spacer"></div>
-        <button class="btn btn-outline" id="resetBtn">Reset Default</button>
+        <button class="btn btn-outline" id="resetBtn" data-testid="reset-button">Reset Default</button>
     </div>
 
-    <div class="table-wrapper">
-        <table id="maturityTable">
-            <thead>
+    <div class="table-wrapper" data-testid="table-wrapper">
+        <table id="maturityTable" data-testid="maturity-table">
+            <thead data-testid="table-head">
                 <tr>
                     <th style="width: 180px;">Discipline</th>
                     <th style="width: 200px;">Virtue</th>
@@ -741,7 +741,7 @@
                     <th style="width: 60px;"></th>
                 </tr>
             </thead>
-            <tbody id="tableBody"></tbody>
+            <tbody id="tableBody" data-testid="table-body"></tbody>
         </table>
     </div>
 </div>
@@ -1780,7 +1780,12 @@
 
     function renderAssessmentChips() {
         assessmentChipRow.innerHTML = assessmentHistory.map(entry => `
-            <button class="assessment-chip ${entry.id === activeAssessmentId ? 'active' : ''}" data-assessment-id="${escapeHtml(entry.id)}">
+            <button
+                class="assessment-chip ${entry.id === activeAssessmentId ? 'active' : ''}"
+                data-testid="assessment-chip"
+                data-assessment-id="${escapeHtml(entry.id)}"
+                data-assessment-label="${escapeHtml(formatDateLabel(entry.date))}"
+            >
                 ${escapeHtml(formatDateLabel(entry.date))}
             </button>
         `).join('');
@@ -1833,14 +1838,18 @@
             if (filterValue !== 'All' && getNormalizedDisciplineName(item.discipline) !== filterValue) return;
 
             const tr = document.createElement('tr');
+            tr.setAttribute('data-testid', 'question-row');
+            tr.setAttribute('data-row-id', item._rowId);
+            tr.setAttribute('data-discipline', getNormalizedDisciplineName(item.discipline));
+            tr.setAttribute('data-virtue', item.virtue || '');
             tr.innerHTML = `
-                <td data-label="Discipline"><span class="discipline-display">${escapeHtml(item.discipline)}</span></td>
-                <td data-label="Virtue"><input type="text" class="editable-cell virtue-input" value="${escapeHtml(item.virtue)}" data-field="virtue" data-idx="${idx}"></td>
-                <td data-label="Principle"><input type="text" class="editable-cell principle-input" value="${escapeHtml(item.principle)}" data-field="principle" data-idx="${idx}"></td>
-                <td data-label="${escapeHtml(scoreLabel)}"><input type="number" min="1" max="5" value="${item.current}" class="val-input" data-field="current" data-idx="${idx}"></td>
-                <td data-label="Target"><input type="number" min="1" max="5" value="${item.target}" class="val-input" data-field="target" data-idx="${idx}"></td>
+                <td data-label="Discipline"><span class="discipline-display" data-testid="discipline-cell">${escapeHtml(item.discipline)}</span></td>
+                <td data-label="Virtue"><input type="text" class="editable-cell virtue-input" value="${escapeHtml(item.virtue)}" data-field="virtue" data-idx="${idx}" data-testid="virtue-input"></td>
+                <td data-label="Principle"><input type="text" class="editable-cell principle-input" value="${escapeHtml(item.principle)}" data-field="principle" data-idx="${idx}" data-testid="principle-input"></td>
+                <td data-label="${escapeHtml(scoreLabel)}"><input type="number" min="1" max="5" value="${item.current}" class="val-input" data-field="current" data-idx="${idx}" data-testid="current-input"></td>
+                <td data-label="Target"><input type="number" min="1" max="5" value="${item.target}" class="val-input" data-field="target" data-idx="${idx}" data-testid="target-input"></td>
                 <td data-label="Actions" class="action-cell">
-                    <button class="btn btn-danger delete-row" data-idx="${idx}" aria-label="Delete question">
+                    <button class="btn btn-danger delete-row" data-idx="${idx}" aria-label="Delete question" data-testid="delete-question">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
                     </button>
                 </td>
@@ -1889,13 +1898,13 @@
         const progress = ((avgCurrent / avgTarget) * 100 || 0).toFixed(0);
 
         overallMaturity.innerHTML = `
-            <div class="maturity-card current">
+            <div class="maturity-card current" data-testid="active-maturity-card">
                 <div class="maturity-label">Active Score</div>
                 <div class="maturity-value">${avgCurrent.toFixed(1)}</div>
                 <div class="maturity-level">${levelNames[Math.round(avgCurrent)] || 'N/A'}</div>
                 <div class="maturity-context">${escapeHtml(activeLabel)}</div>
             </div>
-            <div class="maturity-card target">
+            <div class="maturity-card target" data-testid="target-maturity-card">
                 <div class="maturity-label">Target</div>
                 <div class="maturity-value">${avgTarget.toFixed(1)}</div>
                 <div class="maturity-level">${levelNames[Math.round(avgTarget)] || 'N/A'}</div>
@@ -1921,13 +1930,14 @@
             const averageCurrent = value.n ? (value.c / value.n) : 0;
             const averageTarget = value.n ? (value.t / value.n) : 0;
             scorecardsHtml += `
-                <div class="disc-scorecard">
+                <div class="disc-scorecard" data-testid="discipline-scorecard" data-discipline="${escapeHtml(key)}">
                     <div class="disc-header">
                         <input
                             type="text"
                             class="disc-name-input"
                             value="${escapeHtml(key)}"
                             data-old-name="${escapeHtml(key)}"
+                            data-testid="discipline-card-input"
                             aria-label="Discipline name"
                         >
                         <span class="disc-stats">${averageCurrent.toFixed(1)} / ${averageTarget.toFixed(1)}</span>
@@ -2519,6 +2529,16 @@
     saveAssessmentDateBtn.onclick = updateActiveAssessmentDate;
     addAssessmentBtn.onclick = addAssessmentEntry;
     removeAssessmentBtn.onclick = removeActiveAssessment;
+
+    window.__AGILE_MATURITY_APP__ = {
+        getState: () => deepClone(buildPersistedState()),
+        getOverviewMetrics: () => deepClone(getOverviewMetrics()),
+        getDisciplines: () => deepClone(getDisciplines()),
+        getAssessmentComparisonSummary: () => deepClone(getAssessmentComparisonSummary()),
+        getAuditLog: () => deepClone(auditLog),
+        getActiveAssessmentLabel,
+        getComparisonChartMode: () => comparisonChartMode
+    };
 
     window.onload = () => {
         comparisonChartType.value = comparisonChartMode;
