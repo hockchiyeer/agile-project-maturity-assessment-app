@@ -18,6 +18,7 @@ This folder mirrors the reusable, generic BDD style from the source Cypress fram
 - `I add a custom question with discipline {string} virtue {string} principle {string} score {string} and target {string} in the custom suite`
 - `I rename discipline {string} to {string} in the custom suite`
 - `I delete question {string} in the custom suite`
+- `I add assessment dates until the limit is reached in the custom suite`
 
 ## Supported Then steps
 - `I verify {string} should be visible on {string}`
@@ -33,8 +34,10 @@ This folder mirrors the reusable, generic BDD style from the source Cypress fram
 - `I verify downloaded JSON contains question {string} with score {string} in the custom suite`
 - `I verify PDF export file name {string} in the custom suite`
 - `I verify PPT export file name {string} in the custom suite`
+- `I verify the {string} is disabled on {string}`
 
 ## Page Object Naming
 - Page object keys follow the source repo style, for example `Agile_Maturity_App`.
 - Locator names in Gherkin use spaces and are normalized to underscore keys in the page object map.
 - The page object backing this suite is [`cypress/e2e/pageObjects/agileMaturityApp.js`](../../pageObjects/agileMaturityApp.js).
+

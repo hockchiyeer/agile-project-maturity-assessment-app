@@ -9,7 +9,7 @@ The application itself is a static single-page app rendered from [`index.html`](
 - Scores agile maturity on a `1-5` scale.
 - Tracks up to `12` dated assessment snapshots.
 - Calculates overall and per-discipline maturity averages.
-- Visualizes results with a radar chart and assessment comparison charts.
+- Visualizes results with a radar chart and assessment comparison charts (bar or line).
 - Supports adding custom disciplines and custom questions.
 - Filters the assessment table by discipline.
 - Opens, downloads, and links JSON files for persistence.
@@ -29,7 +29,7 @@ The default dataset contains `58` assessment questions across `8` disciplines:
 - `G-Operations`
 - `H-Buildmanagement`
 
-By default, seeded questions start with a current score of `2` and a target score of `4`.
+By default, seeded questions start with a current score of `2` and a target score of `4`. After a dashboard reset, all scores revert to `2` and all targets revert to `5`.
 
 ## Running The App Locally
 
@@ -47,27 +47,74 @@ Then open `http://localhost:8000`.
 
 ## Cypress BDD Coverage
 
-This repository now contains **two Cypress BDD suites** so readers can compare two different approaches side by side.
+This repository contains **two Cypress BDD suites** so readers can compare two different approaches side by side.
 
 ### 1. Conventional App-Specific BDD Suite
 
-This suite is optimized for this app directly.
+This suite is optimised for this app directly.
 
-- Features live in `cypress/e2e/features`
-- Shared step definitions live in `cypress/e2e/common`
-- Commands and browser harness utilities live in `cypress/support`
-- Coverage includes dashboard rendering, assessment timeline management, editing/customization, persistence, JSON workflows, and export flows
+- Features live in `cypress/e2e/features/`
+- Shared step definitions live in `cypress/e2e/common/`
+- Commands and browser harness utilities live in `cypress/support/`
+- Coverage includes: dashboard rendering, chart type toggle (bar ↔ line), assessment timeline management, score isolation, duplicate date detection, max-date limit, removal, editing and customisation, score clamping, persistence (link / download / open JSON), save-status lifecycle, and export (PDF + PPT)
 - Every feature is exercised for both desktop and mobile viewports
 
 ### 2. Source-Style Custom BDD Suite
 
 This suite mirrors the more generic/page-object-driven structure from the source Cypress framework that inspired the migration.
 
-- Features live in `cypress/e2e/custom/features`
-- Shared step dictionary lives in `cypress/e2e/custom/common`
-- Page objects live in `cypress/e2e/pageObjects`
+- Features live in `cypress/e2e/custom/features/`
+- Shared step dictionary lives in `cypress/e2e/custom/common/`
+- Page objects live in `cypress/e2e/pageObjects/`
 - The local step dictionary overview is documented in [`cypress/e2e/custom/common/README.md`](./cypress/e2e/custom/common/README.md)
+- Coverage matches the conventional suite across all major user journeys
 - Every feature is also exercised for both desktop and mobile viewports
+
+## Repository Structure
+
+```
+agile-project-maturity-assessment-app/
+├── index.html                          # The app (single self-contained file)
+├── cypress.config.js                   # Cypress + Cucumber preprocessor config
+├── package.json                        # Dev dependencies and npm scripts
+├── scripts/
+│   └── run-cypress.js                  # Cypress launcher (clears ELECTRON_RUN_AS_NODE)
+└── cypress/
+    ├── fixtures/
+    │   └── saved-assessment.json       # Reusable persistence fixture
+    ├── server/
+    │   └── static-server.js           # Static HTTP server used during Cypress runs
+    ├── support/
+    │   ├── e2e.js                      # Support entry point
+    │   ├── commands.js                 # Custom Cypress commands and browser harness
+    │   ├── custom-suite-commands.js    # Commands specific to the custom BDD suite
+    │   └── vendor-stubs.js            # Inline stubs for Chart.js, jsPDF, PptxGenJS
+    └── e2e/
+        ├── features/                   # Conventional BDD feature files
+        │   ├── dashboardRendering.feature
+        │   ├── assessmentTimeline.feature
+        │   ├── editingAndCustomization.feature
+        │   └── persistenceAndExport.feature
+        ├── common/                     # Conventional BDD step definitions
+        │   ├── given.js
+        │   ├── when.js
+        │   ├── then.js
+        │   └── helpers.js
+        ├── pageObjects/                # Page object map (used by custom suite)
+        │   ├── index.js
+        │   └── agileMaturityApp.js
+        └── custom/
+            ├── features/               # Custom BDD feature files
+            │   ├── customDashboardCoverage.feature
+            │   ├── customAssessmentTimeline.feature
+            │   ├── customDataManagement.feature
+            │   └── customPersistenceAndExport.feature
+            └── common/                 # Custom BDD step definitions
+                ├── README.md
+                ├── given.js
+                ├── when.js
+                └── then.js
+```
 
 ## Installing Test Dependencies
 
@@ -82,26 +129,28 @@ npm install
 The Cypress scripts use [`scripts/run-cypress.js`](./scripts/run-cypress.js), which clears `ELECTRON_RUN_AS_NODE` before launching Cypress. That is important in environments where this variable is already set, because it can prevent the Cypress binary from starting correctly.
 
 ```powershell
-npm run test:e2e:conventional
-npm run test:e2e:custom
-npm run test:e2e:all
-npm run cy:open
+npm run test:e2e:conventional   # Conventional BDD suite only
+npm run test:e2e:custom         # Custom BDD suite only
+npm run test:e2e:all            # Both suites
+npm run cy:open                 # Interactive Cypress runner
 ```
 
 ## Current Validation Status
 
-The two BDD suites were verified locally with:
+Both BDD suites are verified locally and pass across desktop and mobile scenarios:
 
 ```powershell
 npm run test:e2e:conventional
 npm run test:e2e:custom
 ```
 
-Both suites pass across desktop and mobile scenarios.
+## Key Test Assets
 
-## Repository Test Assets
-
-- `cypress/fixtures/saved-assessment.json`: reusable persistence fixture
-- `cypress/support/vendor-stubs.js`: local script stubs for external browser libraries used by the app
-- `cypress/server/static-server.js`: static host used by Cypress during runs
-- `scripts/run-cypress.js`: Cypress launcher wrapper for this environment
+| Asset | Purpose |
+|---|---|
+| `cypress/fixtures/saved-assessment.json` | Reusable fixture for the open-JSON persistence scenario |
+| `cypress/support/vendor-stubs.js` | Inline stubs for Chart.js, jsPDF, jspdf-autotable, and PptxGenJS |
+| `cypress/support/commands.js` | Cypress commands and in-memory browser harness (file picker, download, export intercepts) |
+| `cypress/support/custom-suite-commands.js` | Page-object resolver commands used exclusively by the custom suite |
+| `cypress/server/static-server.js` | Minimal Node HTTP server that serves `index.html` during Cypress runs |
+| `scripts/run-cypress.js` | Cypress launcher wrapper that strips `ELECTRON_RUN_AS_NODE` |

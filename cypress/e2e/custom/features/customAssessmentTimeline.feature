@@ -14,6 +14,11 @@ Feature: Custom suite assessment timeline coverage
     When I enter date "2030-01-31" in "assessment date input" on "Agile_Maturity_App"
     And I click on the "update date button" on "Agile_Maturity_App"
     Then I verify the active assessment label should be "2030-01-31" in the custom suite
+    When I add assessment dates until the limit is reached in the custom suite
+    Then I verify count of "assessment chip" should be 12 on "Agile_Maturity_App"
+    And I verify the "add assessment button" is disabled on "Agile_Maturity_App"
+    When I click on the "remove assessment button" on "Agile_Maturity_App"
+    Then I verify count of "assessment chip" should be 11 on "Agile_Maturity_App"
 
     Examples:
       | viewport |

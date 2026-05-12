@@ -10,27 +10,8 @@ const {
 } = require("@badeball/cypress-cucumber-preprocessor/esbuild");
 const { startStaticServer } = require("./cypress/server/static-server");
 
-try {
-  const nodeCrypto = require("crypto");
-  if (typeof global.crypto === "undefined") {
-    global.crypto = nodeCrypto.webcrypto || nodeCrypto;
-  }
-  if (!global.crypto.randomUUID) {
-    global.crypto.randomUUID = function fallbackRandomUuid() {
-      return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, char => {
-        const random = (Math.random() * 16) | 0;
-        const value = char === "x" ? random : (random & 0x3) | 0x8;
-        return value.toString(16);
-      });
-    };
-  }
-} catch (error) {
-  console.warn("[crypto-polyfill] Unable to initialize crypto:", error.message);
-}
-
 module.exports = defineConfig({
   video: false,
-  screenshotsFolder: "cypress/screenshots",
   chromeWebSecurity: false,
   defaultCommandTimeout: 10000,
   requestTimeout: 10000,

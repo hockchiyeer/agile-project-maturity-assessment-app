@@ -82,3 +82,8 @@ Then("I verify PPT export file name {string} in the custom suite", fileName => {
     expect(exports.at(-1).fileName).to.eq(fileName);
   });
 });
+
+Then("I verify the {string} is disabled on {string}", (locatorName, pageName) => {
+  cy.getCustomElement(locatorName, pageName).first().should("be.disabled");
+});
+

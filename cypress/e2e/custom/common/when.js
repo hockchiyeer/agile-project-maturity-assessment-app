@@ -52,3 +52,16 @@ When("I rename discipline {string} to {string} in the custom suite", (currentNam
 When("I delete question {string} in the custom suite", virtue => {
   cy.deleteQuestionCustom(virtue);
 });
+
+When("I add assessment dates until the limit is reached in the custom suite", () => {
+  function fillUntilDisabled() {
+    return cy.getByTestId("add-date-button").then($button => {
+      if ($button.prop("disabled")) {
+        return;
+      }
+      return cy.wrap($button).click().then(() => fillUntilDisabled());
+    });
+  }
+  fillUntilDisabled();
+});
+
